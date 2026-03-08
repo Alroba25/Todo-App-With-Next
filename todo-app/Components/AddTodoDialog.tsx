@@ -56,8 +56,11 @@ export default function AddTodoDialog() {
       title="Add Todo"
       description="Add your todo here. Click save when you're done."
       triggerButton={
-        <Button className=" text-center" size="lg">
-          <Plus />
+        <Button
+          className="text-center bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-zinc-300 text-white dark:text-zinc-900 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
+          size="lg"
+        >
+          <Plus className="mr-2 h-5 w-5" />
           Add Todo
         </Button>
       }
