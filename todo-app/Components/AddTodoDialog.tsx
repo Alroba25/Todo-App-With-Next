@@ -26,7 +26,7 @@ import { useState } from "react";
 import Model from "./Model";
 import { DialogClose, DialogFooter } from "./ui/dialog";
 
-export default function AddTodoDialog() {
+export default function AddTodoDialog({ userId }: { userId: string | null }) {
   const form = useForm<z.infer<typeof todoFormSchema>>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
@@ -42,6 +42,7 @@ export default function AddTodoDialog() {
       title,
       description,
       completed,
+      userId,
     });
     setOpen(false);
   };

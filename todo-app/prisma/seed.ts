@@ -9,6 +9,7 @@ async function main() {
       title: faker.lorem.sentence(),
       description: faker.lorem.sentence(),
       completed: faker.datatype.boolean(),
+      user_id: faker.string.uuid(),
       updatedAt: faker.date.recent(),
     })),
   });
