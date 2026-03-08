@@ -13,5 +13,6 @@ model Todo{
     description String @default("")
     completed Boolean  @default(false)
     createdAt DateTime @default(now())
+    user_id   String
     updatedAt DateTime @updatedAt
 }

@@ -2,7 +2,6 @@ import { getTodo } from "@/actions/todo.actions";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -13,9 +12,12 @@ import { Badge } from "./ui/badge";
 import TodoTableActions from "./TodoTableActions";
 import { Inbox } from "lucide-react";
 
-export default async function TodoTable() {
-  const todo = await getTodo();
-  console.log(todo);
+export default async function TodoTable({
+  sorting,
+}: {
+  sorting: "asc" | "desc";
+}) {
+  const todo = await getTodo(sorting);
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
       <Table>
@@ -77,7 +79,12 @@ export default async function TodoTable() {
                   {todo.createdAt.toDateString()}
                 </TableCell>
                 <TableCell className="flex gap-2 justify-end items-center">
-                  <TodoTableActions id={todo.id} />
+                  <TodoTableActions
+                    id={todo.id}
+                    title={todo.title}
+                    description={todo.description}
+                    completed={todo.completed}
+                  />
                 </TableCell>
               </TableRow>
             ))

@@ -1,8 +1,15 @@
 import AddTodoDialog from "@/components/AddTodoDialog";
 import TodoTable from "@/components/TodoTable";
-import { ListTodo } from "lucide-react";
+import { ListTodo, LogOut } from "lucide-react";
 import { ModeToggle } from "@/components/ToggleTheme";
-export default function Home() {
+import SortSelect from "@/components/SortSelect";
+import { SignOutButton } from "@clerk/nextjs";
+
+export default async function Home(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const searchParams = await props.searchParams;
+  const value = searchParams.sort === "asc" ? "asc" : "desc";
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/50 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 font-sans p-4 sm:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -13,20 +20,27 @@ export default function Home() {
               <ListTodo size={28} />
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-400">
-              Todo Master
+              Todo App
             </h1>
           </div>
+          <SortSelect />
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <div className="flex-1 sm:flex-none">
               <AddTodoDialog />
             </div>
             <ModeToggle />
+            <SignOutButton>
+              <button className="flex items-center justify-center gap-2 p-2.5 sm:px-4 sm:py-2 bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-xl transition-all duration-200 font-medium border border-red-500/20 shadow-sm cursor-pointer whitespace-nowrap">
+                <LogOut size={18} />
+                <span className="hidden sm:inline">Sign Out</span>
+              </button>
+            </SignOutButton>
           </div>
         </div>
 
         {/* Main Content */}
         <main className="w-full">
-          <TodoTable />
+          <TodoTable sorting={value} />
         </main>
       </div>
     </div>
