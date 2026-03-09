@@ -6,9 +6,12 @@ export const getTodo = async (
   sort: "asc" | "desc" = "desc",
   userId: string | null,
 ) => {
+  if (!userId) {
+    return [];
+  }
   return await prisma.todo.findMany({
     where: {
-      user_id: userId as string,
+      user_id: userId,
     },
     orderBy: {
       createdAt: sort,
