@@ -11,13 +11,15 @@ import {
 import { Badge } from "./ui/badge";
 import TodoTableActions from "./TodoTableActions";
 import { Inbox } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function TodoTable({
   sorting,
 }: {
   sorting: "asc" | "desc";
 }) {
-  const todo = await getTodo(sorting);
+  const { userId } = await auth();
+  const todo = await getTodo(sorting, userId);
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
       <Table>

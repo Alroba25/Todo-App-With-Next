@@ -3,8 +3,14 @@ import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 const prisma = new PrismaClient();
 
-export const getTodo = async (sort: "asc" | "desc" = "desc") => {
+export const getTodo = async (
+  sort: "asc" | "desc" = "desc",
+  userId: string | null,
+) => {
   return await prisma.todo.findMany({
+    where: {
+      user_id: userId as string,
+    },
     orderBy: {
       createdAt: sort,
     },
